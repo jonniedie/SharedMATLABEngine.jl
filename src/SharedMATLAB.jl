@@ -16,9 +16,10 @@ by typing `>`. Julia variables can be interpolated into MATLAB commands via the 
 ## Examples
 ```julia
 julia> using SharedMATLAB
-REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
 
-julia> connect_matlab(:default_engine)
+julia> eng = connect_matlab(:default_engine)
+REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
+SharedMATLAB.Engine()
 
 >> a = magic(3)
 

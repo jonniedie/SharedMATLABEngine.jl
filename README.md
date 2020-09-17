@@ -28,8 +28,9 @@ To begin using SharedMATLAB, import the library and call the function `connect_m
 ```julia
 julia> using SharedMATLAB
 
-julia> connect_matlab("MATLAB_25596") # Get from matlab.engine.engineName in MATLAB
+julia> eng = connect_matlab("MATLAB_25596") # Get from matlab.engine.engineName in MATLAB
 REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
+SharedMATLAB.Engine()
 ```
 
 Now the MATLAB command line can be accessed from the Julia REPL by typing `>`.
@@ -57,11 +58,17 @@ b =
      7    12     5
 ```
 
-And MATLAB command outputs can be accessed in Julia through the `mat"` string macro.
+MATLAB command outputs can be accessed in Julia through the `mat"` string macro or the `Engine` object's `workspace` field.
 ```julia
 julia> b = a21 .+ mat"a"
 3×3 Array{Float64,2}:
  11.0   4.0   9.0
   6.0   8.0  10.0
   7.0  12.0   5.0
+
+julia> sqrt.(eng.workspace.a)
+3×3 Array{Float64,2}:
+ 2.82843  1.0      2.44949
+ 1.73205  2.23607  2.64575
+ 2.0      3.0      1.41421
 ```

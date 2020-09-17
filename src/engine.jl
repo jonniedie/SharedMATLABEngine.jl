@@ -34,9 +34,9 @@ If no name engine name is given, it will connect to the first named session retu
 ## Examples
 ```julia
 julia> using SharedMATLAB
-REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
 
-julia> connect_matlab(:default_engine)
+julia> connect_matlab(:default_engine);
+REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
 
 >> a = magic(3)
 
