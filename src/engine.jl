@@ -3,6 +3,7 @@
     connect_matlab(engine_name)
 
 Connect to a named MATLAB session. This must be done before using the integrated MATLAB REPL.
+If no name engine name is given, this will call `start_matlab` to start a new MATLAB session.
 
 ## Examples
 ```julia
@@ -42,6 +43,11 @@ end
 connect_matlab() = start_matlab()
 
 
+"""
+    start_matlab()
+
+Start new MATLAB session
+"""
 function start_matlab()
 py"""
 import matlab.engine

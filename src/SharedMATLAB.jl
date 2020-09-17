@@ -2,13 +2,13 @@
     SharedMATLAB
 
 ## Exports
-- matlab_engine
-- @mat_str
+- connect_matlab
+- start_matlab
 - mat"
 
 ## Description
 Run MATLAB code in an open MATLAB engine session. To get started, call the function
-`matlab_engine(engine_name)` in the Julia REPL. Now the MATLAB command line can be accessed
+`connect_matlab(engine_name)` in the Julia REPL. Now the MATLAB command line can be accessed
 from the Julia REPL by typing `>`. Julia variables can be interpolated into MATLAB commands
 via the `\$` operator.
 
@@ -17,7 +17,7 @@ via the `\$` operator.
 julia> using SharedMATLAB
 REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
 
-julia> matlab_engine(:default_engine)
+julia> connect_matlab(:default_engine)
 
 >> a = magic(3)
 
@@ -46,7 +46,7 @@ using ReplMaker
 include("engine.jl")
 include("matrepl_str.jl")
 
-export matlab_engine
+export connect_matlab, start_matlab
 export @mat_str
 
 
