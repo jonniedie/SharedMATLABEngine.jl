@@ -28,9 +28,8 @@ To begin using SharedMATLAB, import the library and call the function `connect_m
 ```julia
 julia> using SharedMATLAB
 
-julia> eng = connect_matlab("MATLAB_25596") # Get from matlab.engine.engineName in MATLAB
+julia> eng = connect_matlab("MATLAB_25596"); # Get from matlab.engine.engineName in MATLAB
 REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
-SharedMATLAB.Engine()
 ```
 
 Now the MATLAB command line can be accessed from the Julia REPL by typing `>`.
