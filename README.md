@@ -40,9 +40,9 @@ b =
      7    12     5
 ```
 
-And MATLAB command outputs can be accessed in Julia through the `matrepl"` string macro.
+And MATLAB command outputs can be accessed in Julia through the `mat"` string macro.
 ```julia
-julia> b = a21 .+ matrepl"a"
+julia> b = a21 .+ mat"a"
 3×3 Array{Float64,2}:
  11.0   4.0   9.0
   6.0   8.0  10.0

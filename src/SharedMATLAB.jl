@@ -3,8 +3,8 @@
 
 ## Exports
 - matlab_engine
-- @matrepl_str
-- matrepl"
+- @mat_str
+- mat"
 
 ## Description
 Run MATLAB code in an open MATLAB engine session. To get started, call the function
@@ -31,7 +31,7 @@ a =
 >> \$a21 = a(2,1)
 3.0
 
-julia> a21 .+ matrepl"a"
+julia> a21 .+ mat"a"
 3×3 Array{Float64,2}:
  11.0   4.0   9.0
   6.0   8.0  10.0
@@ -47,16 +47,7 @@ include("engine.jl")
 include("matrepl_str.jl")
 
 export matlab_engine
-export @matrepl_str
+export @mat_str
 
-function __init__()
-    if isinteractive()
-        initrepl(str -> Meta.parse("SharedMATLAB.matrepl\"$str\"");
-            prompt_text = ">> ",
-            start_key = ">",
-            mode_name = "SharedMATLAB",
-        )
-    end
-end
 
 end
