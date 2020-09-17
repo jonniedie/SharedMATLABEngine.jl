@@ -15,7 +15,7 @@ Once Python is installed, the MATLAB Engine API for Python needs to be set up. I
 ```
 
 Finally, SharedMATLAB must be installed in Julia. To do so, press the `]` key in the Julia REPL to enter Pkg mode. You should see the command prompt change from `julia>` to `(@v1.x) pkg>`. Since SharedMATLAB is not registered, it must be added by entering:
-```julia-repl
+```julia
 (@v1.5) pkg> add https://github.com/jonniedie/SharedMATLAB.jl
 ```
 
