@@ -45,7 +45,7 @@ a =
 
 Julia variables can be interpolated into MATLAB commands via the `$` operator.
 ```matlab
->> \$a21 = a(2,1)
+>> $a21 = a(2,1)
 3.0
 
 >> b = $a21 + a
