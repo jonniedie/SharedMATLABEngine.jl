@@ -23,7 +23,7 @@ From here, SharedMATLAB should work. If not, check out the [documentation for in
 
 
 ## Getting Started
-To begin using SharedMATLAB, import the library and call the function `connect_matlab(engine_name)`. To see the name of the MATLAB session you want to connect to, call `matlab.engine.engineName` in MATLAB.
+To begin using SharedMATLAB, import the library and call the function `connect_matlab(engine_name)`. To see a list of available MATLAB sessions, call `find_matlab()`. Alternitavely, you can call `matlab.engine.engineName` in MATLAB to see the name of that specific session.
 
 ```julia
 julia> using SharedMATLAB

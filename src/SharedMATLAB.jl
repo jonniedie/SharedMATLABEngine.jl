@@ -4,13 +4,14 @@
 ## Exports
 - connect_matlab
 - start_matlab
+- find_matlab
 - mat"
 
 ## Description
 Run MATLAB code in an open MATLAB engine session. To get started, call the function
-`connect_matlab(engine_name)` in the Julia REPL. Now the MATLAB command line can be accessed
-from the Julia REPL by typing `>`. Julia variables can be interpolated into MATLAB commands
-via the `\$` operator.
+`connect_matlab(engine_name)` in the Julia REPL. To see a list of open engine names, call
+`find_matlab()`. Once connected, the MATLAB command line can be accessedfrom the Julia REPL
+by typing `>`. Julia variables can be interpolated into MATLAB commands via the `\$` operator.
 
 ## Examples
 ```julia
@@ -46,8 +47,15 @@ using ReplMaker
 include("engine.jl")
 include("matrepl_str.jl")
 
-export connect_matlab, start_matlab
+export connect_matlab, start_matlab, find_matlab
 export @mat_str
 
+# Note: Don't fix the indentation here, it breaks Julia syntax highlighting
+function __init__()
+py"""
+import matlab.engine
+import numpy as np
+"""
+end
 
 end
