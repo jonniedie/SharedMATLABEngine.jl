@@ -48,13 +48,23 @@ Julia variables can be interpolated into MATLAB commands via the `$` operator.
 >> $a21 = a(2,1)
 3.0
 
->> b = $a21 + a
+>> b = {zeros($a21), 'some words'}
 
 b =
 
-    11     4     9
-     6     8    10
-     7    12     5
+  1×2 cell array
+
+    {3×3 double}    {'some words'}
+
+
+>> [$z, c] = b{:}
+
+c =
+
+    'some words'
+
+julia> (a21, z)
+(3.0, [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0])
 ```
 
 MATLAB command outputs can be accessed in Julia through the `mat"` string macro or the `Engine` object's `workspace` field.
