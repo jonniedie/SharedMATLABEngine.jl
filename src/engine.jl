@@ -17,7 +17,7 @@ Base.propertynames(me::Engine) = Symbol.(py"dir(eng)")
 struct Workspace
     pyobj::PyCall.PyObject
 end
-Base.getproperty(ws::Workspace, s::Symbol) = _convert_mat(Engine().eval(string(s)))
+Base.getproperty(::Workspace, s::Symbol) = _convert_py_output(Engine().eval(string(s)))
 Base.getindex(ws::Workspace, s) = getproperty(ws, Symbol(s))
 Base.keys(ws::Workspace) = keys(getfield(ws, :pyobj))
 Base.propertynames(ws::Workspace) = propertynames(getfield(ws, :pyobj))
