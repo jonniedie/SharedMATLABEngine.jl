@@ -22,10 +22,7 @@ Base.getproperty(::Workspace, s::Symbol) = Base.eval(Main, _mat_str(string(s)))
 
 # Not sure why I have to do it this way here but not in the mat" string macro
 function Base.setproperty!(::Workspace, s::Symbol, x)
-    x_str = string(x)
-    if x isa AbstractVector
-        x_str = replace(x_str, ","=>";")
-    end
+    x_str = _string_for_matlab(x)
     str = string(s) * " = " * x_str
     _mat_str(str)
     return nothing

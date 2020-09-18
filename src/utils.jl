@@ -52,13 +52,15 @@ end
 
 function _interpolate(expr::Expr)
     if expr.head == :call
-        _interpolate(Base.eval(Main, expr))
+        expr = _interpolate(Base.eval(Main, expr))
+    elseif expr.head == :vect
+        expr = Expr(:call, :reshape, expr, :, 1)
     else
-        Expr(expr.head, _interpolate.(expr.args)...)
+        expr = Expr(expr.head, _interpolate.(expr.args)...)
     end
+    return expr
 end
 _interpolate(sym::Symbol) = _interpolate(Base.eval(Main, sym))
-_interpolate(v::AbstractVector) = reshape(v, :, 1)
 _interpolate(thing) = thing
 
 
@@ -82,3 +84,7 @@ end
 
 _string_string(s::String) = "'$s'"
 _string_string(s) = s
+
+
+_string_for_matlab(x::AbstractVector) = replace(string(x), ","=>";")
+_string_for_matlab(x) = string(x)
