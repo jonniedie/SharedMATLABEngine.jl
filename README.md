@@ -1,11 +1,11 @@
-# SharedMATLAB
+# SharedMATLABEngine
 
-SharedMATLAB allows MATLAB and Julia to share data with an open MATLAB session through a MATLAB command line embedded in the Julia REPL. The functionality is similar to [MATLAB.jl](https://github.com/JuliaInterop/MATLAB.jl). The main advantage of SharedMATLAB.jl over MATLAB.jl is the ability to connect to an already open named MATLAB engine session. The advantages of MATLAB.jl over SharedMATLAB.jl are... well a lot. A lot more effort has gone into that project than this one. Unless you really need to connect to an already open MATLAB session, you should probably use MATLAB.jl.
+SharedMATLABEngine allows MATLAB and Julia to share data with an open MATLAB session through a MATLAB command line embedded in the Julia REPL. The functionality is similar to [MATLAB.jl](https://github.com/JuliaInterop/MATLAB.jl). The main advantage of SharedMATLABEngine.jl over MATLAB.jl is the ability to connect to an already open named MATLAB engine session. The advantages of MATLAB.jl over SharedMATLABEngine.jl are... well a lot. A lot more effort has gone into that project than this one. Unless you really need to connect to an already open MATLAB session, you should probably use MATLAB.jl.
 
-SharedMATLAB goes through a PyCall and the uses the matlab.engine interface in Python.
+SharedMATLABEngine goes through a PyCall and the uses the matlab.engine interface in Python.
 
 ## Installation
-Since SharedMATLAB connects through the Python API for the MATLAB Engine, [Python must first be installed](https://www.python.org/downloads/).
+Since SharedMATLABEngine connects through the Python API for the MATLAB Engine, [Python must first be installed](https://www.python.org/downloads/).
 
 Once Python is installed, the MATLAB Engine API for Python needs to be set up. In the MATLAB command prompt, enter:
 ```matlab
@@ -14,22 +14,22 @@ Once Python is installed, the MATLAB Engine API for Python needs to be set up. I
 >> system('python setup.py install')
 ```
 
-Finally, SharedMATLAB must be installed in Julia. To do so, press the `]` key in the Julia REPL to enter Pkg mode. You should see the command prompt change from `julia>` to `(@v1.x) pkg>`. Since SharedMATLAB is not registered, it must be added by entering:
+Finally, SharedMATLABEngine must be installed in Julia. To do so, press the `]` key in the Julia REPL to enter Pkg mode. You should see the command prompt change from `julia>` to `(@v1.x) pkg>`. Since SharedMATLABEngine is not registered, it must be added by entering:
 ```julia
-(@v1.5) pkg> add https://github.com/jonniedie/SharedMATLAB.jl
+(@v1.5) pkg> add https://github.com/jonniedie/SharedMATLABEngine.jl
 ```
 
-From here, SharedMATLAB should work. If not, check out the [documentation for installing the MATLAB Engine API in Python](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html).
+From here, SharedMATLABEngine should work. If not, check out the [documentation for installing the MATLAB Engine API in Python](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html).
 
 
 ## Getting Started
-To begin using SharedMATLAB, import the library and call the function `connect_matlab(engine_name)`. To see a list of available MATLAB sessions, call `find_matlab()`. Alternitavely, you can call `matlab.engine.engineName` in MATLAB to see the name of that specific session.
+To begin using SharedMATLABEngine, import the library and call the function `connect_matlab(engine_name)`. To see a list of available MATLAB sessions, call `find_matlab()`. Alternitavely, you can call `matlab.engine.engineName` in MATLAB to see the name of that specific session.
 
 ```julia
-julia> using SharedMATLAB
+julia> using SharedMATLABEngine
 
 julia> eng = connect_matlab("MATLAB_25596"); # Get from matlab.engine.engineName in MATLAB
-REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
+REPL mode SharedMATLABEngine initialized. Press > to enter and backspace to exit.
 ```
 
 Now the MATLAB command line can be accessed from the Julia REPL by typing `>`.
