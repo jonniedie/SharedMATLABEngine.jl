@@ -45,6 +45,7 @@ module SharedMATLAB
 using PyCall
 using ReplMaker
 
+include("utils.jl")
 include("engine.jl")
 include("matrepl_str.jl")
 
