@@ -13,6 +13,7 @@ end
 Base.propertynames(me::Engine) = Symbol.(py"dir(eng)")
 
 
+# This is only here to convert outputs of the engine workspace
 struct Workspace
     pyobj::PyCall.PyObject
 end
