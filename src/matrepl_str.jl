@@ -42,10 +42,10 @@ Runs MATLAB code in open MATLAB engine session
 
 ## Examples
 ```julia
-julia> using SharedMATLAB
+julia> using SharedMATLABEngine
 
 julia> matlab_engine(:default_engine);
-REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
+REPL mode MATLAB initialized. Press > to enter and backspace to exit.
 
 >> a = magic(3)
 

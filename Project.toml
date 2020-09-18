@@ -1,4 +1,4 @@
-name = "SharedMATLAB"
+name = "SharedMATLABEngine"
 uuid = "0164281e-5792-487a-ab63-8965341cf816"
 authors = ["Jonnie Diegelman <jonniediegelman@gmail.com> and contributors"]
 version = "0.1.0"

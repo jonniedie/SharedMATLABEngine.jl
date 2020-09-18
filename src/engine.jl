@@ -51,10 +51,10 @@ If no name engine name is given, it will connect to the first named session retu
 
 ## Examples
 ```julia
-julia> using SharedMATLAB
+julia> using SharedMATLABEngine
 
 julia> connect_matlab(:default_engine);
-REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
+REPL mode MATLAB initialized. Press > to enter and backspace to exit.
 
 >> a = magic(3)
 
@@ -109,11 +109,11 @@ find_matlab() = py"matlab.engine.find_matlab()"
 
 function start_repl()
     if isinteractive()
-        initrepl(str -> Meta.parse("SharedMATLAB.matrepl\"$str\"");
+        initrepl(str -> Meta.parse("SharedMATLABEngine.matrepl\"$str\"");
             prompt_text = ">> ",
             start_key = ">",
             prompt_color = :default,
-            mode_name = "SharedMATLAB",
+            mode_name = "MATLAB",
         )
     end
     return nothing

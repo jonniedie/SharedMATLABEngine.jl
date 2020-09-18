@@ -1,6 +1,6 @@
-using SharedMATLAB
+using SharedMATLABEngine
 using Test
 
-@testset "SharedMATLAB.jl" begin
+@testset "SharedMATLABEngine.jl" begin
     # Write your tests here.
 end

@@ -1,5 +1,5 @@
 """
-    SharedMATLAB
+    SharedMATLABEngine
 
 ## Exports
 - connect_matlab
@@ -15,11 +15,11 @@ by typing `>`. Julia variables can be interpolated into MATLAB commands via the 
 
 ## Examples
 ```julia
-julia> using SharedMATLAB
+julia> using SharedMATLABEngine
 
 julia> eng = connect_matlab(:default_engine)
-REPL mode SharedMATLAB initialized. Press > to enter and backspace to exit.
-SharedMATLAB.Engine()
+REPL mode MATLAB initialized. Press > to enter and backspace to exit.
+SharedMATLABEngine.Engine()
 
 >> a = magic(3)
 
@@ -40,7 +40,7 @@ julia> a21 .+ mat"a"
   7.0  12.0   5.0
 ```
 """
-module SharedMATLAB
+module SharedMATLABEngine
 
 using PyCall
 using ReplMaker

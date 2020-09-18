@@ -45,6 +45,7 @@ end
 
 interpolate(expr) = interpolate(string(expr))
 function interpolate(str::String)
+    # This is taken from https://github.com/JuliaInterop/MATLAB.jl/blob/6e859c1a126b345662b0282a70c9c0c89d9a2762/src/matstr.jl#L99
     str = string("\"\"\"", replace(str, "\"\"\"" => "\\\"\"\""), "\"\"\"")
     return string(Base.eval(Main, _interpolate(Meta.parse(str))))
 end
