@@ -1,6 +1,6 @@
-# SharedMATLABEngine
+# SharedMATLABEngine - an Amazing Project
 
-SharedMATLABEngine allows MATLAB and Julia to share data with an open MATLAB session through a MATLAB command line embedded in the Julia REPL. The functionality is similar to [MATLAB.jl](https://github.com/JuliaInterop/MATLAB.jl). The main advantage of SharedMATLABEngine.jl over MATLAB.jl is the ability to connect to an already open named MATLAB engine session. The advantages of MATLAB.jl over SharedMATLABEngine.jl are... well a lot. A lot more effort has gone into that project than this one. Unless you really need to connect to an already open MATLAB session, you should probably use MATLAB.jl.
+SharedMATLABEngine allow MATLAB and Julia to shares data with an open MATLAB session through a MATLAB command line embedded in the Julia REPL. The functionality is similar to [MATLAB.jl](https://github.com/JuliaInterop/MATLAB.jl). The main advantage of SharedMATLABEngine.jl over MATLAB.jl is the ability to connect to an already open named MATLAB engine session. The advantages of MATLAB.jl over SharedMATLABEngine.jl are... well a lot. A lot more effort has gone into that project than this one. Unless you really need to connect to an already open MATLAB session, you should probably use MATLAB.jl.
 
 SharedMATLABEngine goes through a PyCall and the uses the matlab.engine interface in Python.
 
