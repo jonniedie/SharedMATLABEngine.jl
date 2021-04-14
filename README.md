@@ -1,5 +1,7 @@
 # SharedMATLABEngine
 
+![](assets/car-engine.png)
+
 SharedMATLABEngine allows MATLAB and Julia to share data with an open MATLAB session through a MATLAB command line embedded in the Julia REPL. The functionality is similar to [MATLAB.jl](https://github.com/JuliaInterop/MATLAB.jl). The main advantage of SharedMATLABEngine.jl over MATLAB.jl is the ability to connect to an already open named MATLAB engine session. The advantages of MATLAB.jl over SharedMATLABEngine.jl are... well a lot. A lot more effort has gone into that project than this one. Unless you really need to connect to an already open MATLAB session, you should probably use MATLAB.jl.
 
 SharedMATLABEngine goes through a PyCall and the uses the matlab.engine interface in Python.
@@ -81,3 +83,6 @@ julia> sqrt.(eng.workspace.a)
  1.73205  2.23607  2.64575
  2.0      3.0      1.41421
 ```
+
+## Attributions
+<div>Icon modified from <a href="https://www.flaticon.com/free-icon/car-engine_2061956?term=engine&page=1&position=24&page=1&position=24&related_id=2061956&origin=search" title="car-engine">car-engine</a> made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
