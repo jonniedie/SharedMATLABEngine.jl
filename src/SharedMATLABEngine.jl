@@ -49,15 +49,16 @@ include("utils.jl")
 include("engine.jl")
 include("matrepl_str.jl")
 
+export Engine
 export connect_matlab, start_matlab, find_matlab
 export @mat_str
 
 # Note: Don't fix the indentation here, it breaks Julia syntax highlighting
 function __init__()
-py"""
-import matlab.engine
-import numpy as np
-"""
+    py"""
+    import matlab.engine
+    import numpy as np
+    """
 end
 
 end

@@ -1,4 +1,4 @@
-# SharedMATLABEngine
+# SharedMATLABEngine.jl
 
 ![](assets/car-engine.png)
 
@@ -16,25 +16,44 @@ Once Python is installed, the MATLAB Engine API for Python needs to be set up. I
 >> system('python setup.py install')
 ```
 
-Finally, SharedMATLABEngine must be installed in Julia. To do so, press the `]` key in the Julia REPL to enter Pkg mode. You should see the command prompt change from `julia>` to `(@v1.x) pkg>`. Since SharedMATLABEngine is not registered, it must be added by entering:
-```julia
-(@v1.5) pkg> add https://github.com/jonniedie/SharedMATLABEngine.jl
+Finally, SharedMATLABEngine must be installed in Julia. To do so, press the `]` key in the Julia REPL to enter Pkg mode and enter:
+```julia-repl
+(@v1.x) pkg> add SharedMATLABEngine
 ```
 
 From here, SharedMATLABEngine should work. If not, check out the [documentation for installing the MATLAB Engine API in Python](https://www.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html).
 
 
-## Getting Started
-To begin using SharedMATLABEngine, import the library and call the function `connect_matlab(engine_name)`. To see a list of available MATLAB sessions, call `find_matlab()`. Alternitavely, you can call `matlab.engine.engineName` in MATLAB to see the name of that specific session.
+## Connecting to a MATLAB Session
+### Sharing the MATLAB Engine
+To begin using SharedMATLABEngine, open up a MATLAB session and enter the following in the Command Window: 
+```matlab
+>> matlab.engine.shareEngine
+```
+We can now see the name of the shared engine
+```matlab
+>> matlab.engine.engineName
 
+ans =
+
+    'MATLAB_77164'
+```
+### Connecting Julia to the MATLAB Engine
+To connect the Julia REPL to the MATLAB session, enter:
 ```julia
 julia> using SharedMATLABEngine
 
-julia> eng = connect_matlab("MATLAB_25596"); # Get from matlab.engine.engineName in MATLAB
+julia> connect_matlab()
+```
+Once connected, you will see the message:
+```julia
 REPL mode SharedMATLABEngine initialized. Press > to enter and backspace to exit.
 ```
+If multiple shared MATLAB Engine sessions are open, you can specify the one you want to connect to as a string argument such as `connect_matlab("MATLAB_77164")`. To see a list of available MATLAB sessions, call `find_matlab()`.
 
-Now the MATLAB command line can be accessed from the Julia REPL by typing `>`.
+
+## General Use
+Now that we are connected, the MATLAB command line can be accessed from the Julia REPL by typing `>`
 ```matlab
 >> a = magic(3)
 
@@ -45,9 +64,12 @@ a =
      4     9     2
 ```
 
-Julia variables can be interpolated into MATLAB commands via the `$` operator.
+Julia variables and commands can be interpolated into MATLAB commands via the `$` operator.
 ```matlab
->> $a21 = a(2,1)
+julia> n = 1
+1
+
+>> $a21 = a($(n+1), 1)
 3.0
 
 >> b = {zeros($a21), 'some words'}
@@ -68,21 +90,38 @@ c =
 julia> (a21, z)
 (3.0, [0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0])
 ```
-
-MATLAB command outputs can be accessed in Julia through the `mat"` string macro or the `Engine` object's `workspace` field.
+The `mat"` string macro can also be used to call MATLAB commands without switching the Julia REPL to MATLAB mode
 ```julia
-julia> b = a21 .+ mat"a"
-3×3 Array{Float64,2}:
- 11.0   4.0   9.0
-  6.0   8.0  10.0
-  7.0  12.0   5.0
-
-julia> sqrt.(eng.workspace.a)
-3×3 Array{Float64,2}:
+julia> b = a21 .+ mat"a+1"
+3×3 Matrix{Float64}:
+ 12.0   5.0  10.0
+  7.0   9.0  11.0
+  8.0  13.0   6.0
+```
+Variables from the MATLAB workspace can be accessed through the singleton `Engine` object.
+```julia
+julia> sqrt.(Engine().workspace.a)
+3×3 Matrix{Float64}:
  2.82843  1.0      2.44949
  1.73205  2.23607  2.64575
  2.0      3.0      1.41421
 ```
+
+## Tips
+### Defualt Sharing
+To make MATLAB share sessions by default, open your startup file for editing with
+```matlab
+>> edit(fullfile(userpath,'startup.m'))
+```
+paste the following lines
+```matlab
+try
+    matlab.engine.shareEngine;
+catch e
+    warning(['Cannot share MATLAB session.  ' e.message])
+end
+```
+and save the file.
 
 ## Attributions
 <div>Icon modified from <a href="https://www.flaticon.com/free-icon/car-engine_2061956?term=engine&page=1&position=24&page=1&position=24&related_id=2061956&origin=search" title="car-engine">car-engine</a> made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
