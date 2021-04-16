@@ -41,8 +41,6 @@ julia> a21 .+ mat"a"
 """
 module SharedMATLABEngine
 
-# ENV["PYTHON"] = "python2"
-
 using PyCall
 using ReplMaker
 
