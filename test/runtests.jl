@@ -1,6 +1,6 @@
 using SharedMATLABEngine
 using Test
 
-@testset "SharedMATLABEngine.jl" begin
-    # Write your tests here.
+@testset "Did it import?" begin
+    @test true
 end

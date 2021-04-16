@@ -55,6 +55,7 @@ export @mat_str
 
 # Note: Don't fix the indentation here, it breaks Julia syntax highlighting
 function __init__()
+    ENV["PYTHON"] = "python2"
     try
         py"""
         import matlab.engine
