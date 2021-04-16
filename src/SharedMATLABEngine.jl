@@ -55,10 +55,21 @@ export @mat_str
 
 # Note: Don't fix the indentation here, it breaks Julia syntax highlighting
 function __init__()
-    py"""
-    import matlab.engine
-    import numpy as np
-    """
+    try
+        py"""
+        import matlab.engine
+        import numpy as np
+        """
+    catch
+        major_version = PyCall.pyversion.major
+        preamble = (major_version==3 ? "python3 -m " : "")
+        run(`$(preamble)pip install matlab`)
+        py"""
+        import matlab.engine
+        import numpy as np
+        """
+    end
+
 end
 
 end
