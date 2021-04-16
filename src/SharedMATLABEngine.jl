@@ -46,6 +46,8 @@ module SharedMATLABEngine
 using PyCall
 using ReplMaker
 
+const Conda = PyCall.Conda
+
 include("utils.jl")
 include("engine.jl")
 include("matrepl_str.jl")
@@ -65,7 +67,8 @@ function __init__()
     try
         copy!(matlab, pyimport("matlab"))
     catch
-        PyCall.Conda.pip("install", "matlab")
+        Conda.pip_interop(true)
+        Conda.pip("install", "matlab")
     end
     copy!(matlab, pyimport("matlab"))
     copy!(np, pyimport_conda("numpy", "numpy"))
