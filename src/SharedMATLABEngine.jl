@@ -58,6 +58,8 @@ export @mat_str
 # Note: Don't fix the indentation here, it breaks Julia syntax highlighting
 function __init__()
     try
+        py_importconda("matlab", "matlab")
+        py_importconda("numpy", "numpy")
         py"""
         import matlab.engine
         import numpy as np
