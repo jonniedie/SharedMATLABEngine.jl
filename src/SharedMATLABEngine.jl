@@ -42,7 +42,7 @@ julia> a21 .+ mat"a"
 """
 module SharedMATLABEngine
 
-ENV["PYTHON"] = "python2"
+# ENV["PYTHON"] = "python2"
 
 using PyCall
 using ReplMaker
@@ -57,23 +57,12 @@ export @mat_str
 
 # Note: Don't fix the indentation here, it breaks Julia syntax highlighting
 function __init__()
-    try
-        pyimport_conda("matlab", "matlab")
-        pyimport_conda("numpy", "numpy")
-        py"""
-        import matlab.engine
-        import numpy as np
-        """
-    catch
-        major_version = PyCall.pyversion.major
-        preamble = (major_version==3 ? `python3 -m` : ``)
-        run(`$preamble pip install matlab`)
-        py"""
-        import matlab.engine
-        import numpy as np
-        """
-    end
-
+    pyimport_conda("matlab", "matlab")
+    pyimport_conda("numpy", "numpy")
+    py"""
+    import matlab.engine
+    import numpy as np
+    """
 end
 
 end
