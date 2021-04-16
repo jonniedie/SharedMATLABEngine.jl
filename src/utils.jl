@@ -83,7 +83,7 @@ end
 
 
 _string_string(s::String) = "'$s'"
-_string_string(s) = s
+_string_string(s) = string(s)
 
 
 _string_for_matlab(x::AbstractVector) = replace(string(x), ","=>";")
