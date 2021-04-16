@@ -1,46 +1,25 @@
-# Pretty hacky way of evaluating in this module
-struct Engine end
-
-function Base.getproperty(::Engine, s::Symbol)
-    prop = py"getattr(eng, $(string(s)))"
-    if s == :workspace
-        return Workspace(prop)
-    else
-        return prop
-    end
+mutable struct Workspace
+    obj::PyObject
 end
 
-Base.propertynames(me::Engine) = Symbol.(py"dir(eng)")
+PyCall.PyObject(ws::Workspace) = getfield(ws, :obj)
 
-
-# This is only here to convert outputs of the engine workspace
-struct Workspace
-    pyobj::PyCall.PyObject
+function Base.show(io::IO, ws::Workspace)
+    println(io, "MATLAB workspace with properties")
+    print(io, PyObject(ws))
 end
 
-Base.getproperty(::Workspace, s::Symbol) = Base.eval(Main, _mat_str(string(s)))
+Base.getproperty(ws::Workspace, s::Symbol) = _convert_py_output(PyObject(ws).__getitem__(string(s)))
+Base.setproperty!(ws::Workspace, s::Symbol, val) = PyObject(ws).__setitem__(string(s), val)
+Base.propertynames(ws::Workspace) = (print(PyObject(ws)); ()) # A hack because reasons
 
-# Not sure why I have to do it this way here but not in the mat" string macro
-function Base.setproperty!(::Workspace, s::Symbol, x)
-    x_str = _string_for_matlab(x)
-    str = string(s) * " = " * x_str
-    _mat_str(str)
-    return nothing
-end
-
-Base.getindex(ws::Workspace, s) = getproperty(ws, Symbol(s))
-
-Base.keys(ws::Workspace) = keys(getfield(ws, :pyobj))
-
-Base.propertynames(ws::Workspace) = propertynames(getfield(ws, :pyobj))
-
-Base.show(io::IO, ws::Workspace) = print(io, getfield(ws, :pyobj))
-
+Base.getindex(ws::Workspace, s) = _convert_py_output(PyObject(ws).__getitem__(string(s)))
+Base.setindex!(ws::Workspace, val, s) = PyObject(ws).__setitem__(string(s), val)
 
 
 """
-    connect_matlab(; background=false)
-    connect_matlab(engine_name; background=false)
+    eng = connect_matlab(; background=false)
+    eng = connect_matlab(engine_name; background=false)
 
 Connect to a named MATLAB session. This must be done before using the integrated MATLAB REPL.
 If no name engine name is given, it will connect to the first named session returned from
@@ -73,26 +52,23 @@ julia> a21 .+ mat"a"
 ```
 """
 function connect_matlab(name=nothing; background=false)
-    # Note: Don't fix the indentation here, it breaks Julia syntax highlighting
-py"""
-eng = matlab.engine.connect_matlab($name, background=$background)
-"""
+    copy!(eng, matlab_engine.connect_matlab(name, background=background))
+    setfield!(matlab_workspace, :obj, eng.workspace)
     start_repl()
-    return Engine()
+    return eng
 end
 
 
 """
-    start_matlab(; option="-nodesktop", background=false)
+    eng = start_matlab(; option="-nodesktop", background=false)
 
 Start new MATLAB session
 """
 function start_matlab(; option="-nodesktop", background=false)
-py"""
-eng = matlab.engine.start_matlab(option=$option, background=$(background))
-"""
+    copy!(eng, matlab_engine.start_matlab(option=option, background=background))
+    setfield!(matlab_workspace, :obj, eng.workspace)
     start_repl()
-    return Engine()
+    return eng
 end
 
 
@@ -101,7 +77,7 @@ end
 
 Find available MATLAB sessions
 """
-find_matlab() = py"matlab.engine.find_matlab()"
+find_matlab() = matlab_engine.find_matlab()
 
 
 function start_repl()

@@ -5,15 +5,15 @@ function _mat_str(str; repl=false)
     if rhs == ""
         lhs = interpolate(lhs)
         nargout = Int(!repl)
-        return quote $(_convert_py_output(py"eng.eval($lhs, nargout=$nargout)")) end
+        return quote $(_convert_py_output(eng.eval(lhs, nargout=nargout))) end
 
     elseif lhs_parsed isa Expr && lhs_parsed.head == :($)
-        rhs = _convert_py_output(py"eng.eval($rhs, nargout=1)")
+        rhs = _convert_py_output(eng.eval(rhs, nargout=1))
         return esc(:($(lhs_parsed.args[1]) = $rhs))
 
     elseif lhs_parsed isa Expr && (lhs_parsed.head == :vect || lhs_parsed.head == :hcat)
         # rhs = _convert_py_output.(py"eng.eval($rhs, nargout=$(length(lhs_parsed.args)))")
-        rhs = py"eng.eval($rhs, nargout=$(length(lhs_parsed.args)))"
+        rhs = eng.eval(rhs, nargout=length(lhs_parsed.args))
 
         block = map(zip(lhs_parsed.args, rhs)) do (arg, expr)
             if arg isa Expr && arg.head ==:($)
@@ -21,7 +21,7 @@ function _mat_str(str; repl=false)
 
             else
                 str = string(arg) * "=" * _string_string(expr)
-                quote $(py"eng.eval($str, nargout=0)") end
+                quote $(eng.eval(str, nargout=0)) end
             end
         end
 
@@ -29,7 +29,7 @@ function _mat_str(str; repl=false)
 
     else
         str = lhs * "=" * rhs
-        return quote $(py"eng.eval($str, nargout=0)") end
+        return quote $(eng.eval(str, nargout=0)) end
     end
 end
 

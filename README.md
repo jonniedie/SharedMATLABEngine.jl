@@ -98,13 +98,13 @@ julia> b = a21 .+ mat"a+1"
   7.0   9.0  11.0
   8.0  13.0   6.0
 ```
-Variables from the MATLAB workspace can be accessed through the singleton `Engine` object.
+Variables from the MATLAB workspace can be accessed through the exported `matlab_workspace` variable.
 ```julia
-julia> sqrt.(Engine().workspace.a)
+julia> matlab_workspace.a
 3×3 Matrix{Float64}:
- 2.82843  1.0      2.44949
- 1.73205  2.23607  2.64575
- 2.0      3.0      1.41421
+ 8.0  1.0  6.0
+ 3.0  5.0  7.0
+ 4.0  9.0  2.0
 ```
 
 ## Tips

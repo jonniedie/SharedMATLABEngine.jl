@@ -6,7 +6,7 @@ _convert_py_output(arr::Array{PyCall.PyObject}) = _convert_py_output.(arr)
 function _convert_py_output(pyobj::PyObject)
     type = py"type($pyobj).__name__"
     if type == "double"
-        shape = py"np.shape($pyobj)"
+        shape = np.shape(pyobj)
         return _convert_array(pyobj, shape)
     else
         return pyobj

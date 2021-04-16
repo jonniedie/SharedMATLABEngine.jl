@@ -17,9 +17,8 @@ by typing `>`. Julia variables can be interpolated into MATLAB commands via the 
 ```julia
 julia> using SharedMATLABEngine
 
-julia> eng = connect_matlab(:default_engine)
+julia> eng = connect_matlab(:default_engine);
 REPL mode MATLAB initialized. Press > to enter and backspace to exit.
-SharedMATLABEngine.Engine()
 
 >> a = magic(3)
 
@@ -51,18 +50,21 @@ include("utils.jl")
 include("engine.jl")
 include("matrepl_str.jl")
 
-export Engine
+const np = PyNULL()
+const matlab = PyNULL()
+const matlab_engine = PyNULL()
+const eng = PyNULL()
+const matlab_workspace = Workspace(PyNULL())
+
+export matlab_workspace
 export connect_matlab, start_matlab, find_matlab
 export @mat_str
 
 # Note: Don't fix the indentation here, it breaks Julia syntax highlighting
 function __init__()
-    pyimport_conda("matlab", "matlab")
-    pyimport_conda("numpy", "numpy")
-    py"""
-    import matlab.engine
-    import numpy as np
-    """
+    copy!(matlab, pyimport_conda("matlab", "matlab"))
+    copy!(np, pyimport_conda("numpy", "numpy"))
+    copy!(matlab_engine, pyimport("matlab.engine"))
 end
 
 end
