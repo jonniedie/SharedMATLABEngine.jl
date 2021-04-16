@@ -62,8 +62,8 @@ function __init__()
         """
     catch
         major_version = PyCall.pyversion.major
-        preamble = (major_version==3 ? "python3 -m " : "")
-        run(`$(preamble)pip install matlab`)
+        preamble = (major_version==3 ? `python3 -m` : ``)
+        run(`$preamble pip install matlab`)
         py"""
         import matlab.engine
         import numpy as np
