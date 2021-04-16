@@ -62,17 +62,10 @@ export matlab_workspace
 export connect_matlab, start_matlab, find_matlab
 export @mat_str
 
-# Note: Don't fix the indentation here, it breaks Julia syntax highlighting
 function __init__()
-    try
-        copy!(matlab, pyimport("matlab"))
-    catch
-        Conda.pip_interop(true)
-        Conda.pip("install", "matlab")
-    end
-    copy!(matlab, pyimport("matlab"))
+    copy!(matlab, pyimport_e("matlab"))
     copy!(np, pyimport_conda("numpy", "numpy"))
-    copy!(matlab_engine, pyimport("matlab.engine"))
+    copy!(matlab_engine, pyimport_e("matlab.engine"))
 end
 
 end
