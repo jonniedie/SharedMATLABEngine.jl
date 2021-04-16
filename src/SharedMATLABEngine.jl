@@ -62,8 +62,8 @@ export @mat_str
 
 # Note: Don't fix the indentation here, it breaks Julia syntax highlighting
 function __init__()
-    copy!(matlab, pyimport_conda("matlab", "matlab"))
-    copy!(np, pyimport_conda("numpy", "numpy"))
+    copy!(matlab, pyimport("matlab", "matlab"))
+    copy!(np, pyimport("numpy", "numpy"))
     copy!(matlab_engine, pyimport("matlab.engine"))
 end
 
