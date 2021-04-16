@@ -64,7 +64,7 @@ export @mat_str
 
 function __init__()
     copy!(matlab, pyimport_e("matlab"))
-    copy!(np, pyimport_conda("numpy", "numpy"))
+    copy!(np, pyimport_e("numpy"))
     copy!(matlab_engine, pyimport_e("matlab.engine"))
 end
 
